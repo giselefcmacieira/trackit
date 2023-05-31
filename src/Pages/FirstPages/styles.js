@@ -43,6 +43,9 @@ export const FormContainer = styled.form`
         background: #52B6FF;
         border-radius: 5px;
         border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-family: 'Lexend Deca';
         font-style: normal;
         font-weight: 400;
@@ -50,11 +53,11 @@ export const FormContainer = styled.form`
         line-height: 26px;
         text-align: center;
         color: #FFFFFF;
-        &:hover{
-            cursor: pointer;
-        }
     }
     input {
         width: calc(100vw - 60px);
+        &:disabled{
+            background-color: #F2F2F2;
+        }
     }
 `;

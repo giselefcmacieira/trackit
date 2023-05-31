@@ -2,9 +2,11 @@ import { useState } from 'react'
 import ResetStyle from './styles/ResetStyle'
 import GlobalStyle from './styles/GlobalStyle'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import LoginPage from './LoginPage'
-import RegisterPage from './RegisterPage'
+import LoginPage from './Pages/FirstPages/LoginPage'
+import RegisterPage from './Pages/FirstPages/RegisterPage'
 import axios from 'axios'
+import HabitPage from './Pages/HabitsPage/HabitPage'
+import TodayPage from './Pages/HabitsPage/TodayPage'
 
 function App() {
 
@@ -18,6 +20,8 @@ function App() {
         <Routes>
           <Route path = '/' element={<LoginPage />}></Route>
           <Route path='/cadastro' element={<RegisterPage />}></Route>
+          <Route path='/hoje' element={<TodayPage />}></Route>
+          <Route path='/habitos' element={<HabitPage />}></Route>
         </Routes>
       </BrowserRouter>
     </>
