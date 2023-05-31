@@ -5,13 +5,10 @@ import { infProfile } from "../../constants/Context";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Topo, Text, ContainerProgressBar, PageContainer } from "./Styles";
 
-export default function TodayPage(){
-
+export default function HistoricPage(){
     const navigate = useNavigate();
 
     const infProfi = useContext(infProfile);
-
-    console.log(infProfi[0]);
 
     function goToHabits(){
         navigate('/habitos');
@@ -56,7 +53,5 @@ export default function TodayPage(){
 
             </Menu>
         </PageContainer>
-    )
+    );
 }
-
-

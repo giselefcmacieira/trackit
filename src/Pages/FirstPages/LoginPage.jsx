@@ -1,12 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo_PNG.png"
 import { BASE_URL } from "../../constants/urls";
 import { LoginPageContainer, FormContainer } from "./styles";
 import { ThreeDots } from  'react-loader-spinner'
+import { infProfile } from "../../constants/Context";
 
 export default function LoginPage(){
+
+    const [infProf, setInfProf] = useContext(infProfile);
 
     const navigate = useNavigate();
 
@@ -29,7 +32,8 @@ export default function LoginPage(){
         setIsDisabled(true);
         const requisicao = axios.post(url, object);
         requisicao.then(resp => {
-            console.log(resp);
+            console.log(resp.data);
+            setInfProf(resp.data);
             navigate('/hoje');
         })
         requisicao.catch(erro => {
