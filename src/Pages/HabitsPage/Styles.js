@@ -25,6 +25,7 @@ export const Topo = styled.div`
     left: 0px;
     background-color: #126BA5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    z-index: 4;
     p{
     font-family: 'Playball';
     font-style: normal;

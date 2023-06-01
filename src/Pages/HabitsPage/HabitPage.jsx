@@ -10,6 +10,7 @@ import { WEEKDAYS } from "../../constants/const";
 import WeekDays from "./WeekDays";
 import { ThreeDots } from  'react-loader-spinner';
 import HabitDays from "./HabitDays";
+import Trash from "../../assets/Group.png"
 
 export default function HabitPage(){
 
@@ -29,9 +30,10 @@ export default function HabitPage(){
 
     const [isDisabled, setIsDisabled] = useState(false);
 
+    const [delet, setDelet] = useState(false);
+
     function goToHabits(){
         navigate('/habitos');
-        setAddHabit(false);
     }
 
     function goToHistoric(){
@@ -66,6 +68,26 @@ export default function HabitPage(){
 
     }
 
+    function deletarHabito(id){
+        const confirmacao = confirm('Deseja excluir este habito?');
+        if(confirmacao){
+            const config = {headers: {'Authorization': `Bearer ${infProfi[0].token}`}};
+            const url = `${BASE_URL}/habits/${id}`
+            const requisicao = axios.delete(url, config);
+            requisicao.then(resp => {
+                console.log(resp);
+                if(!delet){
+                    setDelet(true);
+                }else{
+                    setDelet(false);
+                }
+            });
+            requisicao.catch(erro => {
+                console.log(erro.response);
+            })
+        }
+    }
+
     useEffect(() =>{
         const config = {headers: {'Authorization': `Bearer ${infProfi[0].token}`}};
         const requisicao = axios.get(`${BASE_URL}/habits`, config);
@@ -82,17 +104,9 @@ export default function HabitPage(){
         requisicao.catch(erro => {
             console.log(erro);
         });
-    },[addHabit]);
+    },[addHabit, delet]);
 
     console.log(habitos);
-
-    // useEffect(() =>{
-    //     if(habitos.length === 0){
-    //         setMensagem('Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!');
-    //     }else{
-    //         setMensagem('');
-    //     }
-    // },[addHabit]);
 
     return(
         <body>
@@ -159,6 +173,7 @@ export default function HabitPage(){
                         habito={habito}/>
                     ))}
                     </div>
+                    <img src={Trash} onClick={() => deletarHabito(habito.id)}></img>
                 </ContainerHabits>
             ))}
 
@@ -208,6 +223,7 @@ const ContainerHabits = styled.div`
     padding: 13px;
     background-color: white;
     border-radius: 5px;
+    position: relative;
     p{
         font-family: 'Lexend Deca';
         font-style: normal;
@@ -216,6 +232,12 @@ const ContainerHabits = styled.div`
         line-height: 25px;
         color: #666666;
         margin-bottom: 8px;
+    }
+    img{
+        position: absolute;
+        top: 11px;
+        right: 10px;
+        width: 13px;
     }
 `
 
@@ -309,7 +331,6 @@ const ContainerAddHabit = styled.div`
             }
         }
     }
-    
 `;
 
 const FormContainer = styled.form`
