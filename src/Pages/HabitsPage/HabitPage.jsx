@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { infProfile } from "../../constants/Context";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Topo, Text, ContainerProgressBar, PageContainer } from "./Styles";
+import { BASE_URL } from "../../constants/urls";
+import axios from "axios";
+import { WEEKDAYS } from "../../constants/const";
+import WeekDays from "./WeekDays";
+import { ThreeDots } from  'react-loader-spinner';
+import HabitDays from "./HabitDays";
 
 export default function HabitPage(){
 
@@ -11,7 +17,17 @@ export default function HabitPage(){
 
     const infProfi = useContext(infProfile);
 
+    const [habitos, setHabitos] = useState([]);
+
     const [addHabit, setAddHabit] = useState(false);
+
+    const [mensagem, setMensagem] = useState('');
+
+    const [name, setName] = useState('');
+    
+    const [days, setDays] = useState([]);
+
+    const [isDisabled, setIsDisabled] = useState(false);
 
     function goToHabits(){
         navigate('/habitos');
@@ -28,6 +44,56 @@ export default function HabitPage(){
     function cancelarAdd(){
         setAddHabit(false);
     }
+
+    function submit(){
+        console.log(name);
+        console.log(days);
+        setIsDisabled(true);
+        const body = {name, days};
+        const config = {headers: {'Authorization': `Bearer ${infProfi[0].token}`}};
+        const requisicao = axios.post(`${BASE_URL}/habits`, body, config);
+        requisicao.then(resp =>{
+            console.log(resp);
+            setAddHabit(false);
+            setIsDisabled(false);
+            setName('');
+            setDays([]);
+        });
+        requisicao.catch(erro =>{
+            console.log(erro.response)
+        });
+
+    }
+
+    useEffect(() =>{
+        const config = {headers: {'Authorization': `Bearer ${infProfi[0].token}`}};
+        const requisicao = axios.get(`${BASE_URL}/habits`, config);
+        requisicao.then(resp =>{
+            console.log(resp.data);
+            setHabitos(resp.data);
+        });
+        requisicao.catch(erro => {
+            console.log(erro);
+        });
+    },[]);
+
+    console.log(habitos);
+
+    if(habitos === undefined){
+        return(
+            <PageContainer>
+                Carregando ...
+            </PageContainer>
+        );
+    }
+
+    useEffect(() =>{
+        if(habitos.length === 0){
+            setMensagem('Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!');
+        }else{
+            setMensagem('');
+        }
+    },[]);
 
     return(
         <PageContainer>
@@ -46,26 +112,57 @@ export default function HabitPage(){
             <ContainerAddHabit>
                 <FormContainer>
                     <input required
+                    disabled={isDisabled}
                     type='text' 
-                    placeholder="nome do hábito">
+                    placeholder="nome do hábito"
+                    value={name}
+                    onChange={e => setName(e.target.value)}>
                     </input>
                 </FormContainer>
                 <div>
-                    <button>D</button>
-                    <button>S</button>
-                    <button>T</button>
-                    <button>Q</button>
-                    <button>Q</button>
-                    <button>S</button>
-                    <button>S</button>
+                    {WEEKDAYS.map(weekday => (
+                        <WeekDays key = {weekday.id} 
+                        weekday={weekday} 
+                        days={days} setDays={setDays} 
+                        isDisabled={isDisabled}/>
+                    ))}
                 </div> 
                 <div>
-                    <button onClick={cancelarAdd}>Cancelar</button>
-                    <button>Salvar</button>
+                    <button isDisabled={isDisabled} onClick={cancelarAdd}>Cancelar</button>
+                    <button isDisabled={isDisabled} onClick={submit}>
+                    {isDisabled ? <ThreeDots 
+                        height="30" 
+                        width="30" 
+                        radius="6"
+                        color="white" 
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName=""
+                        visible={true}/> 
+                    :
+                    "Salvar"}
+                    </button>
                 </div>
             </ContainerAddHabit>
             :
             ''}
+
+            {habitos.map(habito => (
+                <ContainerHabits>
+                    <p>{habito.name}</p>
+                    <div>
+                    {WEEKDAYS.map(weekday => (
+                        <HabitDays key = {weekday.id} 
+                        weekday={weekday} 
+                        days={days} setDays={setDays} 
+                        isDisabled={isDisabled}
+                        habito={habito}/>
+                    ))}
+                    </div>
+                </ContainerHabits>
+            ))}
+
+            <ContainerMensagem>{mensagem}</ContainerMensagem>
 
             <Menu>
 
@@ -98,6 +195,28 @@ export default function HabitPage(){
         </PageContainer>
     );
 }
+
+const ContainerHabits = styled.div`
+    box-sizing: border-box;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 15px;
+    width: 92%;
+    padding: 13px;
+    background-color: white;
+    border-radius: 5px;
+    p{
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 25px;
+        color: #666666;
+        margin-bottom: 8px;
+    }
+`
 
 const ContainerMyHabits = styled.div`
     box-sizing: border-box;
@@ -151,11 +270,13 @@ const ContainerAddHabit = styled.div`
         width: 98%;
         display:flex;
         justify-content: flex-end;
-        margin-top: 20px;
+        margin-top: 15px;
+        margin-bottom: 15px;
         button:first-child{
             width: 84px;
             height: 35px;
             border: none;
+            background-color: transparent;
             border-radius: 5px;
             font-family: 'Lexend Deca';
             font-style: normal;
@@ -164,8 +285,12 @@ const ContainerAddHabit = styled.div`
             line-height: 20px;
             text-align: center;
             color: #52B6FF;
+            margin-right: 23px;
         }
         button:nth-child(2){
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 84px;
             height: 35px;
             border: none;
@@ -178,23 +303,12 @@ const ContainerAddHabit = styled.div`
             line-height: 20px;
             text-align: center;
             color: #FFFFFF;
+            &:disabled{
+                opacity: 0.7;
+            }
         }
     }
-    button{
-        width: 30px;
-        height: 30px;
-        margin-right: 4px;
-        margin-bottom: 10px;
-        background: #FFFFFF;
-        border: 1px solid #D5D5D5;
-        border-radius: 5px;
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 19.976px;
-        line-height: 25px;
-        color: #DBDBDB;
-    }
+    
 `;
 
 const FormContainer = styled.form`
@@ -209,3 +323,16 @@ const FormContainer = styled.form`
         }
     }
 `;
+
+const ContainerMensagem = styled.div`
+    box-sizing: border-box;
+    width: 100%;
+    font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17.976px;
+    line-height: 22px;
+    color: #666666;
+    padding: 18px;
+    margin-top: 10px;
+`
