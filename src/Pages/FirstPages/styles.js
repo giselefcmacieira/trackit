@@ -53,6 +53,9 @@ export const FormContainer = styled.form`
         line-height: 26px;
         text-align: center;
         color: #FFFFFF;
+        &:disabled{
+            opacity: 0.7;
+        }
     }
     input {
         width: calc(100vw - 60px);
