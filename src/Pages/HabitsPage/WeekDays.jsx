@@ -2,17 +2,21 @@ import { useState } from "react";
 import styled from "styled-components";
 
 export default function WeekDays(props){
-    const {weekday, days, setDays, isDisabled} = props;
+    const {weekday, days, setDays, isDisabled, selected, setSelected} = props;
 
-    const [selected, setSelected] = useState(false);
+    
 
     function selectedd(){
-        if(!selected){
-            setSelected(true);
+        if(!selected[weekday.day]){
+            const array = [...selected];
+            array[weekday.day] = true;
+            setSelected(array);
             const novaArray = [...days, weekday.day];
             setDays(novaArray);
         }else{
-            setSelected(false);
+            const arrayy = [...selected];
+            arrayy[weekday.day] = false;
+            setSelected(arrayy);
             const newArray = [];
             for (let i = 0; i < days.length; i++){
                 if(days[i] !== weekday.day){
@@ -24,7 +28,7 @@ export default function WeekDays(props){
     }
 
     return(
-        <Botao disabled={isDisabled} onClick={selectedd} selected={selected}>{weekday.name}</Botao>
+        <Botao disabled={isDisabled} onClick={selectedd} selected={selected[weekday.day]}>{weekday.name}</Botao>
     )
 }
 const Botao = styled.button`

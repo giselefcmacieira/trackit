@@ -28,6 +28,8 @@ export default function HabitPage(){
     
     const [days, setDays] = useState([]);
 
+    const [selected, setSelected] = useState([false, false, false, false, false, false, false]);
+
     const [isDisabled, setIsDisabled] = useState(false);
 
     const [delet, setDelet] = useState(false);
@@ -61,9 +63,13 @@ export default function HabitPage(){
             setIsDisabled(false);
             setName('');
             setDays([]);
+            setSelected([false, false, false, false, false, false, false]);
         });
         requisicao.catch(erro =>{
-            console.log(erro.response)
+            console.log(erro.response);
+            alert(erro.response.data.message);
+            setIsDisabled(false);
+            setIsDisabled(false);
         });
 
     }
@@ -135,10 +141,11 @@ export default function HabitPage(){
                 </FormContainer>
                 <div>
                     {WEEKDAYS.map(weekday => (
-                        <WeekDays key = {weekday.id} 
+                        <WeekDays key = {weekday.day} 
                         weekday={weekday} 
                         days={days} setDays={setDays} 
-                        isDisabled={isDisabled}/>
+                        isDisabled={isDisabled}
+                        selected={selected} setSelected={setSelected}/>
                     ))}
                 </div> 
                 <div>
