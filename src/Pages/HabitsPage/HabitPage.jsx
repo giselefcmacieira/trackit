@@ -31,6 +31,7 @@ export default function HabitPage(){
 
     function goToHabits(){
         navigate('/habitos');
+        setAddHabit(false);
     }
 
     function goToHistoric(){
@@ -68,34 +69,33 @@ export default function HabitPage(){
     useEffect(() =>{
         const config = {headers: {'Authorization': `Bearer ${infProfi[0].token}`}};
         const requisicao = axios.get(`${BASE_URL}/habits`, config);
+        setMensagem('Carregando...')
         requisicao.then(resp =>{
             console.log(resp.data);
             setHabitos(resp.data);
+            if(resp.data.length === 0){
+                setMensagem('Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!');
+            }else{
+                setMensagem('');
+            }
         });
         requisicao.catch(erro => {
             console.log(erro);
         });
-    },[]);
+    },[addHabit]);
 
     console.log(habitos);
 
-    if(habitos === undefined){
-        return(
-            <PageContainer>
-                Carregando ...
-            </PageContainer>
-        );
-    }
-
-    useEffect(() =>{
-        if(habitos.length === 0){
-            setMensagem('Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!');
-        }else{
-            setMensagem('');
-        }
-    },[]);
+    // useEffect(() =>{
+    //     if(habitos.length === 0){
+    //         setMensagem('Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!');
+    //     }else{
+    //         setMensagem('');
+    //     }
+    // },[addHabit]);
 
     return(
+        <body>
         <PageContainer>
             <Topo>
                 <p>TrackIt</p>
@@ -193,6 +193,7 @@ export default function HabitPage(){
 
             </Menu>
         </PageContainer>
+        </body>
     );
 }
 

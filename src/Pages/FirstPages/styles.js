@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const Body = styled.body`
+    background-color: white;
+    position: absolute;
+`;
+
 export const LoginPageContainer = styled.div`
     display: flex;
     flex-direction: column;

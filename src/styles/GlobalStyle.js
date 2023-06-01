@@ -24,6 +24,12 @@ const GlobalStyle = createGlobalStyle`
 		}
 		
 	}
+	body{
+		background-color: #E5E5E5;
+		height: 100%;
+		width:100%;
+
+	}
 `
 
 export default GlobalStyle

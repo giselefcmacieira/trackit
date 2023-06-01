@@ -8,8 +8,9 @@ export const PageContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     background-color: #E5E5E5;
-    height: 1000px; //trocar dps
+    height: 100%; //trocar dps
     text-decoration: none;
+
 `
 export const Topo = styled.div`
     box-sizing: border-box;

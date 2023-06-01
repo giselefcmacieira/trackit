@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo_PNG.png"
 import { BASE_URL } from "../../constants/urls";
-import { LoginPageContainer, FormContainer } from "./styles";
+import { LoginPageContainer, FormContainer, Body } from "./styles";
 import { ThreeDots } from  'react-loader-spinner'
 import { infProfile } from "../../constants/Context";
 
@@ -45,6 +45,7 @@ export default function LoginPage(){
     }
 
     return(
+        <Body>
         <LoginPageContainer>
             <img src={Logo} />
             <p>TrackIt</p>
@@ -81,6 +82,7 @@ export default function LoginPage(){
             <a>Não tem uma conta? Cadastre-se</a>
             </Link>
         </LoginPageContainer>
+        </Body>
     );
 }
 
