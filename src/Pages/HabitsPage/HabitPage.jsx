@@ -11,6 +11,7 @@ import WeekDays from "./WeekDays";
 import { ThreeDots } from  'react-loader-spinner';
 import HabitDays from "./HabitDays";
 import Trash from "../../assets/Group.png";
+import Header from "./Header";
 
 export default function HabitPage(){
 
@@ -121,10 +122,8 @@ export default function HabitPage(){
     return(
         <body>
         <PageContainer>
-            <Topo data-test="header">
-                <p>TrackIt</p>
-                <img data-test="avatar" src={infProfi[0].image}></img>
-            </Topo>
+            
+            <Header />
 
             <ContainerMyHabits>
                 <p>Meus hábitos</p>

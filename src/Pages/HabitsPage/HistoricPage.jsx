@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { infProfile, percent } from "../../constants/Context";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Topo, Text, ContainerProgressBar, PageContainer } from "./Styles";
+import Header from "./Header";
 
 export default function HistoricPage(){
     const navigate = useNavigate();
@@ -22,10 +23,8 @@ export default function HistoricPage(){
 
     return(
         <PageContainer>
-            <Topo  data-test="header">
-                <p>TrackIt</p>
-                <img data-test="avatar" src={infProfi[0].image}></img>
-            </Topo>
+            
+            <Header />
 
             <ContainerHistorico>
                 <p>Histórico</p>

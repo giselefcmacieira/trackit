@@ -9,6 +9,7 @@ import axios from "axios";
 import { BASE_URL } from "../../constants/urls";
 import Habit from "./Habit";
 import { percent } from "../../constants/Context";
+import Header from "./Header";
 
 
 export default function TodayPage(){
@@ -95,10 +96,7 @@ export default function TodayPage(){
 
     return(
         <PageContainer>
-            <Topo data-test="header">
-                <p>TrackIt</p>
-                <img data-test="avatar" src={infProfi[0].image}></img>
-            </Topo>
+            <Header />
 
             <ContainerInfoHoje progresso={progresso}>
                 <p data-test="today">{weekday}, {dayjs().format('DD/MM')}</p>
