@@ -22,18 +22,24 @@ export default function HistoricPage(){
 
     return(
         <PageContainer>
-            <Topo>
+            <Topo  data-test="header">
                 <p>TrackIt</p>
-                <img src={infProfi[0].image}></img>
+                <img data-test="avatar" src={infProfi[0].image}></img>
             </Topo>
-            <Menu>
 
-                    <Text onClick={goToHabits}>
+            <ContainerHistorico>
+                <p>Histórico</p>
+                <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
+            </ContainerHistorico>
+
+            <Menu data-test="menu">
+
+                    <Text data-test="habit-link" onClick={goToHabits}>
                         <p>Habitos</p>
                     </Text>
 
                 <Link to='/hoje'>
-                <ContainerProgressBar>
+                <ContainerProgressBar data-test="today-link" >
                     <CircularProgressbarWithChildren value={progresso[0]}
                     background
                     backgroundPadding={6}
@@ -49,7 +55,7 @@ export default function HistoricPage(){
                 </ContainerProgressBar>
                 </Link>
 
-                <Text onClick={goToHistoric}>
+                <Text data-test="history-link" onClick={goToHistoric}>
                     <p>Histórico</p>
                 </Text>
 
@@ -57,3 +63,30 @@ export default function HistoricPage(){
         </PageContainer>
     );
 }
+
+const ContainerHistorico = styled.div`
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 17px;
+    p:first-child{
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 23px;
+        line-height: 29px;
+        color: #126BA5;
+        margin-bottom: 17px;
+    }
+    p:nth-child(2){
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 17.976px;
+        line-height: 22px;
+        color: #666666;
+    }
+`;

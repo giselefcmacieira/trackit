@@ -121,21 +121,22 @@ export default function HabitPage(){
     return(
         <body>
         <PageContainer>
-            <Topo>
+            <Topo  data-test="header">
                 <p>TrackIt</p>
-                <img src={infProfi[0].image}></img>
+                <img data-test="avatar" src={infProfi[0].image}></img>
             </Topo>
 
             <ContainerMyHabits>
                 <p>Meus hábitos</p>
-                <div onClick={adicionarHabito}>+</div>
+                <div data-test="habit-create-btn" onClick={adicionarHabito}>+</div>
             </ContainerMyHabits>
 
 
             {addHabit ? 
-            <ContainerAddHabit>
+            <ContainerAddHabit data-test="habit-create-container">
                 <FormContainer>
                     <input required
+                    data-test="habit-name-input"
                     disabled={isDisabled}
                     type='text' 
                     placeholder="nome do hábito"
@@ -153,8 +154,8 @@ export default function HabitPage(){
                     ))}
                 </div> 
                 <div>
-                    <button isDisabled={isDisabled} onClick={cancelarAdd}>Cancelar</button>
-                    <button isDisabled={isDisabled} onClick={submit}>
+                    <button data-test="habit-create-cancel-btn" isDisabled={isDisabled} onClick={cancelarAdd}>Cancelar</button>
+                    <button data-test="habit-create-save-btn" isDisabled={isDisabled} onClick={submit}>
                     {isDisabled ? <ThreeDots 
                         height="30" 
                         width="30" 
@@ -173,8 +174,8 @@ export default function HabitPage(){
             ''}
 
             {habitos.map(habito => (
-                <ContainerHabits>
-                    <p>{habito.name}</p>
+                <ContainerHabits data-test="habit-container">
+                    <p data-test="habit-name" >{habito.name}</p>
                     <div>
                     {WEEKDAYS.map(weekday => (
                         <HabitDays key = {weekday.id} 
@@ -184,20 +185,20 @@ export default function HabitPage(){
                         habito={habito}/>
                     ))}
                     </div>
-                    <img src={Trash} onClick={() => deletarHabito(habito.id)}></img>
+                    <img data-test="habit-delete-btn" src={Trash} onClick={() => deletarHabito(habito.id)}></img>
                 </ContainerHabits>
             ))}
 
             <ContainerMensagem>{mensagem}</ContainerMensagem>
 
-            <Menu>
+            <Menu data-test="menu">
 
-                    <Text onClick={goToHabits}>
+                    <Text data-test="habit-link" onClick={goToHabits}>
                         <p>Habitos</p>
                     </Text>
 
                 <Link to='/hoje'>
-                <ContainerProgressBar>
+                <ContainerProgressBar data-test="today-link" >
                     <CircularProgressbarWithChildren value={progresso[0]}
                     background
                     backgroundPadding={6}
@@ -213,7 +214,7 @@ export default function HabitPage(){
                 </ContainerProgressBar>
                 </Link>
 
-                <Text onClick={goToHistoric}>
+                <Text data-test="history-link" onClick={goToHistoric}>
                     <p>Histórico</p>
                 </Text>
 

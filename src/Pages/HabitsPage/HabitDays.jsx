@@ -16,7 +16,7 @@ export default function HabitDays(props){
     console.log(selected);
 
     return(
-        <Botao selected={selected}>{weekday.name}</Botao>
+        <Botao data-test="habit-day" selected={selected}>{weekday.name}</Botao>
     )
 }
 const Botao = styled.button`

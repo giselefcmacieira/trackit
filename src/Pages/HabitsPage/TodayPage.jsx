@@ -15,6 +15,8 @@ export default function TodayPage(){
 
     const [progresso, setProgresso] = useContext(percent);
 
+    console.log(typeof(progresso));
+
     const navigate = useNavigate();
 
     const infProfi = useContext(infProfile);
@@ -71,7 +73,11 @@ export default function TodayPage(){
 
     const qtdConcluidos = concluidos.length;
 
-    setProgresso((qtdConcluidos/quantidade)*100);
+    if(quantidade === 0){
+        setProgresso(0)
+    }else{
+        setProgresso((qtdConcluidos/quantidade)*100);
+    }
 
     if(progresso === 0){
         mensagem = 'Nenhum hábito concluído ainda';
@@ -89,27 +95,27 @@ export default function TodayPage(){
 
     return(
         <PageContainer>
-            <Topo>
+            <Topo data-test="header">
                 <p>TrackIt</p>
-                <img src={infProfi[0].image}></img>
+                <img data-test="avatar" src={infProfi[0].image}></img>
             </Topo>
 
             <ContainerInfoHoje progresso={progresso}>
-                <p>{weekday}, {dayjs().format('DD/MM')}</p>
-                <p>{mensagem}</p>
+                <p data-test="today">{weekday}, {dayjs().format('DD/MM')}</p>
+                <p data-test="today-counter">{mensagem}</p>
             </ContainerInfoHoje>
             
             {todayHabits.map(habit => (
                 <Habit habit={habit} key={habit.id} recarregar={recarregar} setRecarregar={setRecarregar}/>)
             )}
 
-            <Menu>
-                <Text onClick={goToHabits}>
+            <Menu data-test="menu">
+                <Text data-test="habit-link" onClick={goToHabits}>
                     <p>Habitos</p>
                 </Text>
 
                 <Link to='/hoje'>
-                <ContainerProgressBar>
+                <ContainerProgressBar data-test="today-link">
                     <CircularProgressbarWithChildren value={progresso}
                     background
                     backgroundPadding={6}
@@ -125,7 +131,7 @@ export default function TodayPage(){
                 </ContainerProgressBar>
                 </Link>
 
-                <Text onClick={goToHistoric}>
+                <Text data-test="history-link" onClick={goToHistoric}>
                     <p>Histórico</p>
                 </Text>
 
@@ -162,7 +168,7 @@ const ContainerInfoHoje = styled.div`
             if(props.progresso > 0){
                 return '#8FC549';
             }else{
-                return '#BABABA'
+                return '#BABABA';
             }
         }};
     }

@@ -28,7 +28,7 @@ export default function WeekDays(props){
     }
 
     return(
-        <Botao disabled={isDisabled} onClick={selectedd} selected={selected[weekday.day]}>{weekday.name}</Botao>
+        <Botao data-test="habit-day" disabled={isDisabled} onClick={selectedd} selected={selected[weekday.day]}>{weekday.name}</Botao>
     )
 }
 const Botao = styled.button`

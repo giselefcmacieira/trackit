@@ -51,20 +51,22 @@ export default function LoginPage(){
             <p>TrackIt</p>
             <FormContainer onSubmit={login}>
                 <input required
+                data-test="email-input"
                 type='email' 
                 placeholder="email"
                 value = {email}
                 onChange = {e => setEmail(e.target.value)}
                 disabled={isDisabled}>
                 </input>
-                <input 
+                <input required
+                data-test="password-input"
                 type='password' 
                 placeholder="senha"
                 value = {password}
                 onChange = {e => setPassword(e.target.value)}
                 disabled={isDisabled}>
                 </input>
-                <button type='submit' disabled={isDisabled}>
+                <button data-test="login-btn" type='submit' disabled={isDisabled}>
                     {buttonClicked ? <ThreeDots 
                         height="70" 
                         width="70" 
@@ -78,8 +80,8 @@ export default function LoginPage(){
                     "Entrar"}
                 </button>
             </FormContainer>
-            <Link to='/cadastro'>
-            <a>Não tem uma conta? Cadastre-se</a>
+            <Link data-test="signup-link" to='/cadastro'>
+            Não tem uma conta? Cadastre-se
             </Link>
         </LoginPageContainer>
         </Body>

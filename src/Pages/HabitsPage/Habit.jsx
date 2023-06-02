@@ -38,13 +38,13 @@ export default function Habit(props){
     }
 
     return(
-        <ContainerHabit done={habit.done} currentSequence={habit.currentSequence} highestSequence={habit.highestSequence}>
+        <ContainerHabit data-test="today-habit-container" done={habit.done} currentSequence={habit.currentSequence} highestSequence={habit.highestSequence}>
             <div>
-                <p>{habit.name}</p>
-                <p>Sequência atual: <p>{habit.currentSequence} dias</p></p>
-                <p>Seu record: <p>{habit.highestSequence} dias</p></p>
+                <p data-test="today-habit-name">{habit.name}</p>
+                <p data-test="today-habit-sequence">Sequência atual: <p>{habit.currentSequence} dias</p></p>
+                <p data-test="today-habit-record">Seu record: <p>{habit.highestSequence} dias</p></p>
             </div>
-            <div>
+            <div data-test="today-habit-check-btn">
                 <img onClick = {marcarDesmarcarHabito} src={Check}></img>
             </div>
         </ContainerHabit>

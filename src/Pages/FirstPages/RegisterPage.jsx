@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LoginPageContainer, FormContainer } from "./styles";
+import { LoginPageContainer, FormContainer, Body } from "./styles";
 import Logo from '../../assets/Logo_PNG.png';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -48,11 +48,13 @@ export default function RegisterPage(){
     }
 
     return(
+        <Body>
         <LoginPageContainer>
             <img src={Logo} />
             <p>TrackIt</p>
             <FormContainer onSubmit={register}>
                 <input required
+                data-test="email-input"
                 type='email' 
                 placeholder="email"
                 value={email}
@@ -60,6 +62,7 @@ export default function RegisterPage(){
                 disabled={isDisabled}>
                 </input>
                 <input required
+                data-test="password-input"
                 type='password' 
                 placeholder="senha"
                 value={password}
@@ -67,6 +70,7 @@ export default function RegisterPage(){
                 disabled={isDisabled}>
                 </input>
                 <input required
+                data-test="user-name-input" 
                 type='text' 
                 placeholder="nome"
                 value={name}
@@ -74,13 +78,14 @@ export default function RegisterPage(){
                 disabled={isDisabled}>
                 </input>
                 <input required
+                data-test="user-image-input"
                 type='url' 
                 placeholder="foto"
                 valeu={image}
                 onChange={e => setImage(e.target.value)}
                 disabled={isDisabled}>
                 </input>
-                <button type='submit' disabled={isDisabled}>
+                <button data-test="signup-btn" type='submit' disabled={isDisabled}>
                 {buttonClicked ? <ThreeDots 
                         height="70" 
                         width="70" 
@@ -94,9 +99,10 @@ export default function RegisterPage(){
                     "Cadastrar"}
                 </button>
             </FormContainer>
-            <Link to='/'>
-            <a>Já tem uma conta? Faça login</a>
+            <Link data-test="login-link" to='/'>
+            Já tem uma conta? Faça login
             </Link>
         </LoginPageContainer>
+        </Body>
     );
 }
