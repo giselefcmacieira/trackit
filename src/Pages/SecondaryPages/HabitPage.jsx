@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { infProfile, percent } from "../../constants/Context";
 import { PageContainer, ContainerHabits, ContainerMyHabits, ContainerAddHabit, FormContainer, ContainerMensagem } from "../../styles/Styles-Today-Habit-Historic";
@@ -14,9 +13,9 @@ import Footer from "../../components/Footer";
 
 export default function HabitPage(){
 
-    const infProfi = useContext(infProfile);
+    const [infProfi, setInfProfi] = useContext(infProfile);
 
-    const progresso = useContext(percent);
+    const [progresso, setProgresso] = useContext(percent);
 
     console.log(progresso);
 
@@ -49,7 +48,7 @@ export default function HabitPage(){
         console.log(days);
         setIsDisabled(true);
         const body = {name, days};
-        const config = {headers: {'Authorization': `Bearer ${infProfi[0].token}`}};
+        const config = {headers: {'Authorization': `Bearer ${infProfi.token}`}};
         const requisicao = axios.post(`${BASE_URL}/habits`, body, config);
         requisicao.then(resp =>{
             console.log(resp);
@@ -71,7 +70,7 @@ export default function HabitPage(){
     function deletarHabito(id){
         const confirmacao = confirm('Deseja excluir este habito?');
         if(confirmacao){
-            const config = {headers: {'Authorization': `Bearer ${infProfi[0].token}`}};
+            const config = {headers: {'Authorization': `Bearer ${infProfi.token}`}};
             const url = `${BASE_URL}/habits/${id}`
             const requisicao = axios.delete(url, config);
             requisicao.then(resp => {
@@ -89,7 +88,7 @@ export default function HabitPage(){
     }
 
     useEffect(() =>{
-        const config = {headers: {'Authorization': `Bearer ${infProfi[0].token}`}};
+        const config = {headers: {'Authorization': `Bearer ${infProfi.token}`}};
         const requisicao = axios.get(`${BASE_URL}/habits`, config);
         //setMensagem('Carregando...')
         requisicao.then(resp =>{

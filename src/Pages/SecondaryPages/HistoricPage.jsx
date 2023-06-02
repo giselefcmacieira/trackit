@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useContext } from "react";
 import { infProfile } from "../../constants/Context";
 import { PageContainer, ContainerHistorico } from "../../styles/Styles-Today-Habit-Historic";
@@ -7,7 +6,7 @@ import Footer from "../../components/Footer";
 
 export default function HistoricPage(){
 
-    const infProfi = useContext(infProfile);
+    const [infProfi, setInfProfi] = useContext(infProfile);
 
     return(
         <PageContainer>

@@ -7,7 +7,7 @@ import { useContext } from "react"
 
 export default function Footer(){
 
-    const progresso = useContext(percent);
+    const [progresso, setProgresso] = useContext(percent);
 
     return(
         <Menu data-test="menu">
@@ -16,7 +16,7 @@ export default function Footer(){
                     
             <Link data-test="today-link" to='/hoje'>
                 <ContainerProgressBar >
-                    <CircularProgressbarWithChildren value={progresso[0]}
+                    <CircularProgressbarWithChildren value={progresso}
                         background
                         backgroundPadding={6}
                         styles={buildStyles({

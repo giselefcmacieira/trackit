@@ -7,7 +7,9 @@ import { LoginPageContainer, FormContainer, Body } from "../../styles/Styles-Log
 import { ThreeDots } from  'react-loader-spinner'
 import { infProfile } from "../../constants/Context";
 
-export default function LoginPage(){
+export default function LoginPage(props){
+
+    const {fezLogin, setFezLogin} = props;
 
     const [infProf, setInfProf] = useContext(infProfile);
 

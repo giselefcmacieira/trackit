@@ -10,6 +10,7 @@ import TodayPage from './Pages/SecondaryPages/TodayPage'
 import { infProfile } from './constants/Context'
 import HistoricPage from './Pages/SecondaryPages/HistoricPage'
 import { percent } from './constants/Context'
+import { TodayHab } from './constants/Context'
 
 function App() {
 
@@ -19,23 +20,29 @@ function App() {
 
   const [progresso, setProgresso] = useState(0);
 
+  const [TodayHabits, setTodayHabits] = useState([]);
+
+  const [fezLogin, setFezLogin] = useState(false);
+
   return (
     <>
       <ResetStyle />
       <GlobalStyle />
+      <TodayHab.Provider value={[TodayHabits, setTodayHabits]}>
       <percent.Provider value={[progresso, setProgresso]}>
       <infProfile.Provider value={[infProf, setInfProf]}>
         <BrowserRouter>
           <Routes>
-              <Route path = '/' element={<LoginPage />}></Route>
+              <Route path = '/' element={<LoginPage fezLogin={fezLogin} setFezLogin={setFezLogin}/>}></Route>
               <Route path='/cadastro' element={<RegisterPage />}></Route>
-              <Route path='/hoje' element={<TodayPage />}></Route>
+              <Route path='/hoje' element={<TodayPage fezLogin={fezLogin} setFezLogin={setFezLogin}/>}></Route>
               <Route path='/habitos' element={<HabitPage />}></Route>
               <Route path='/historico' element={<HistoricPage />}></Route>
           </Routes>
         </BrowserRouter>
       </infProfile.Provider>
       </percent.Provider>
+      </TodayHab.Provider>
     </>
   )
 }

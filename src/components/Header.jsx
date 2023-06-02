@@ -4,12 +4,12 @@ import { useContext } from "react";
 
 export default function Header(){
 
-    const infProfi = useContext(infProfile);
+    const [infProfi, setInfProfi] = useContext(infProfile);
 
     return(
     <Topo data-test="header">
         <p>TrackIt</p>
-        <img data-test="avatar" src={infProfi[0].image}></img>
+        <img data-test="avatar" src={infProfi.image}></img>
     </Topo>
     );
 }
