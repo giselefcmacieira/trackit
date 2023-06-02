@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
 import { useContext } from "react";
-import { infProfile } from "../../constants/Context";
+import { infProfile, percent } from "../../constants/Context";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Topo, Text, ContainerProgressBar, PageContainer } from "./Styles";
 
@@ -9,6 +9,8 @@ export default function HistoricPage(){
     const navigate = useNavigate();
 
     const infProfi = useContext(infProfile);
+
+    const progresso = useContext(percent);
 
     function goToHabits(){
         navigate('/habitos');
@@ -32,7 +34,7 @@ export default function HistoricPage(){
 
                 <Link to='/hoje'>
                 <ContainerProgressBar>
-                    <CircularProgressbarWithChildren value={10}
+                    <CircularProgressbarWithChildren value={progresso[0]}
                     background
                     backgroundPadding={6}
                     styles={buildStyles({

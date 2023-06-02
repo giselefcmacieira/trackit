@@ -5,10 +5,6 @@ export default function HabitDays(props){
 
     const {weekday, days, setDays, isDisabled, habito} = props;
 
-    console.log(habito.days);
-
-    console.log(weekday);
-
     const [selected, setSelected] = useState(false);
 
     useEffect(() => {

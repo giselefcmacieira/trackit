@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
 import { useContext, useEffect, useState } from "react";
-import { infProfile } from "../../constants/Context";
+import { infProfile, percent } from "../../constants/Context";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Topo, Text, ContainerProgressBar, PageContainer } from "./Styles";
 import { BASE_URL } from "../../constants/urls";
@@ -10,13 +10,17 @@ import { WEEKDAYS } from "../../constants/const";
 import WeekDays from "./WeekDays";
 import { ThreeDots } from  'react-loader-spinner';
 import HabitDays from "./HabitDays";
-import Trash from "../../assets/Group.png"
+import Trash from "../../assets/Group.png";
 
 export default function HabitPage(){
 
     const navigate = useNavigate();
 
     const infProfi = useContext(infProfile);
+
+    const progresso = useContext(percent);
+
+    console.log(progresso);
 
     const [habitos, setHabitos] = useState([]);
 
@@ -97,7 +101,7 @@ export default function HabitPage(){
     useEffect(() =>{
         const config = {headers: {'Authorization': `Bearer ${infProfi[0].token}`}};
         const requisicao = axios.get(`${BASE_URL}/habits`, config);
-        setMensagem('Carregando...')
+        //setMensagem('Carregando...')
         requisicao.then(resp =>{
             console.log(resp.data);
             setHabitos(resp.data);
@@ -194,7 +198,7 @@ export default function HabitPage(){
 
                 <Link to='/hoje'>
                 <ContainerProgressBar>
-                    <CircularProgressbarWithChildren value={10}
+                    <CircularProgressbarWithChildren value={progresso[0]}
                     background
                     backgroundPadding={6}
                     styles={buildStyles({

@@ -9,6 +9,7 @@ import HabitPage from './Pages/HabitsPage/HabitPage'
 import TodayPage from './Pages/HabitsPage/TodayPage'
 import { infProfile } from './constants/Context'
 import HistoricPage from './Pages/HabitsPage/HistoricPage'
+import { percent } from './constants/Context'
 
 function App() {
 
@@ -16,10 +17,13 @@ function App() {
 
   const [infProf, setInfProf] = useState('');
 
+  const [progresso, setProgresso] = useState(0);
+
   return (
     <>
       <ResetStyle />
       <GlobalStyle />
+      <percent.Provider value={[progresso, setProgresso]}>
       <infProfile.Provider value={[infProf, setInfProf]}>
         <BrowserRouter>
           <Routes>
@@ -31,6 +35,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </infProfile.Provider>
+      </percent.Provider>
     </>
   )
 }
