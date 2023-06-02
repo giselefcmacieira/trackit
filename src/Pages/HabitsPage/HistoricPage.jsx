@@ -22,9 +22,11 @@ export default function HistoricPage(){
 
     return(
         <PageContainer>
-            <Topo  data-test="header">
+            <Topo>
+            <div data-test="header">
                 <p>TrackIt</p>
                 <img data-test="avatar" src={infProfi[0].image}></img>
+            </div>
             </Topo>
 
             <ContainerHistorico>
@@ -38,8 +40,8 @@ export default function HistoricPage(){
                         <p>Habitos</p>
                     </Text>
 
-                <Link to='/hoje'>
-                <ContainerProgressBar data-test="today-link" >
+                <Link data-test="today-link" to='/hoje'>
+                <ContainerProgressBar >
                     <CircularProgressbarWithChildren value={progresso[0]}
                     background
                     backgroundPadding={6}

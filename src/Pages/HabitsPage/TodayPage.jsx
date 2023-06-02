@@ -95,9 +95,11 @@ export default function TodayPage(){
 
     return(
         <PageContainer>
-            <Topo data-test="header">
+            <Topo>
+                <div data-test="header">
                 <p>TrackIt</p>
                 <img data-test="avatar" src={infProfi[0].image}></img>
+                </div>
             </Topo>
 
             <ContainerInfoHoje progresso={progresso}>
@@ -114,8 +116,8 @@ export default function TodayPage(){
                     <p>Habitos</p>
                 </Text>
 
-                <Link to='/hoje'>
-                <ContainerProgressBar data-test="today-link">
+                <Link data-test="today-link" to='/hoje'>
+                <ContainerProgressBar >
                     <CircularProgressbarWithChildren value={progresso}
                     background
                     backgroundPadding={6}
@@ -134,7 +136,6 @@ export default function TodayPage(){
                 <Text data-test="history-link" onClick={goToHistoric}>
                     <p>Histórico</p>
                 </Text>
-
             </Menu>
         </PageContainer>
     )
