@@ -1,21 +1,18 @@
 import styled from "styled-components";
-import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
 import { useContext, useEffect, useState } from "react";
 import { infProfile, percent } from "../../constants/Context";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu, Topo, Text, ContainerProgressBar, PageContainer } from "./Styles";
+import { PageContainer, ContainerHabits, ContainerMyHabits, ContainerAddHabit, FormContainer, ContainerMensagem } from "../../styles/Styles-Today-Habit-Historic";
 import { BASE_URL } from "../../constants/urls";
 import axios from "axios";
 import { WEEKDAYS } from "../../constants/const";
-import WeekDays from "./WeekDays";
+import WeekDays from "../../components/WeekDays";
 import { ThreeDots } from  'react-loader-spinner';
-import HabitDays from "./HabitDays";
+import HabitDays from "../../components/HabitDays";
 import Trash from "../../assets/Group.png";
-import Header from "./Header";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 export default function HabitPage(){
-
-    const navigate = useNavigate();
 
     const infProfi = useContext(infProfile);
 
@@ -38,14 +35,6 @@ export default function HabitPage(){
     const [isDisabled, setIsDisabled] = useState(false);
 
     const [delet, setDelet] = useState(false);
-
-    function goToHabits(){
-        navigate('/habitos');
-    }
-
-    function goToHistoric(){
-        navigate('/historico');
-    }
 
     function adicionarHabito(){
         setAddHabit(true);
@@ -122,7 +111,7 @@ export default function HabitPage(){
     return(
         <body>
         <PageContainer>
-            
+
             <Header />
 
             <ContainerMyHabits>
@@ -173,7 +162,7 @@ export default function HabitPage(){
             ''}
 
             {habitos.map(habito => (
-                <ContainerHabits data-test="habit-container">
+                <ContainerHabits data-test="habit-container" key={habito.id}>
                     <p data-test="habit-name" >{habito.name}</p>
                     <div>
                     {WEEKDAYS.map(weekday => (
@@ -190,182 +179,9 @@ export default function HabitPage(){
 
             <ContainerMensagem>{mensagem}</ContainerMensagem>
 
-            <Menu data-test="menu">
+            <Footer />
 
-                    <Text data-test="habit-link" onClick={goToHabits}>
-                        <p>Habitos</p>
-                    </Text>
-
-                <Link data-test="today-link" to='/hoje'>
-                <ContainerProgressBar >
-                    <CircularProgressbarWithChildren value={progresso[0]}
-                    background
-                    backgroundPadding={6}
-                    styles={buildStyles({
-                        pathColor: "#fff",
-                        trailColor: "transparent",
-                        strokeLinecap: "round",
-                        backgroundColor: "#52B6FF",
-                      })}
-                    >
-                        <p>Hoje</p>
-                    </CircularProgressbarWithChildren>
-                </ContainerProgressBar>
-                </Link>
-
-                <Text data-test="history-link" onClick={goToHistoric}>
-                    <p>Histórico</p>
-                </Text>
-
-            </Menu>
         </PageContainer>
         </body>
     );
 }
-
-const ContainerHabits = styled.div`
-    box-sizing: border-box;
-    display:flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    margin-top: 15px;
-    width: 92%;
-    padding: 13px;
-    background-color: white;
-    border-radius: 5px;
-    position: relative;
-    p{
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 25px;
-        color: #666666;
-        margin-bottom: 8px;
-    }
-    img{
-        position: absolute;
-        top: 11px;
-        right: 10px;
-        width: 13px;
-    }
-`
-
-const ContainerMyHabits = styled.div`
-    box-sizing: border-box;
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 15px;
-    width: 100%;
-    padding: 0 18px 0 18px;
-    p{
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 23px;
-        line-height: 29px;
-        color: #126BA5;
-    }
-    div{
-        width: 40px;
-        height: 35px;
-        background: #52B6FF;
-        border-radius: 5px;
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 26.976px;
-        line-height: 34px;
-        text-align: center;
-        color: #FFFFFF;
-    }
-`;
-
-const ContainerAddHabit = styled.div`
-    box-sizing: border-box;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 15px;
-    width: 92%;
-    padding: 0 18px 0 18px;
-    background-color: white;
-    border-radius: 5px;
-    padding-top: 18px;
-    div:nth-child(2){
-        width: 97%;
-        display:flex;
-        justify-content: flex-start;
-    }
-    div:nth-child(3){
-        width: 98%;
-        display:flex;
-        justify-content: flex-end;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        button:first-child{
-            width: 84px;
-            height: 35px;
-            border: none;
-            background-color: transparent;
-            border-radius: 5px;
-            font-family: 'Lexend Deca';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 20px;
-            text-align: center;
-            color: #52B6FF;
-            margin-right: 23px;
-        }
-        button:nth-child(2){
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 84px;
-            height: 35px;
-            border: none;
-            background: #52B6FF;
-            border-radius: 5px;
-            font-family: 'Lexend Deca';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 20px;
-            text-align: center;
-            color: #FFFFFF;
-            &:disabled{
-                opacity: 0.7;
-            }
-        }
-    }
-`;
-
-const FormContainer = styled.form`
-    width: 100%; 
-    display: flex;
-    justify-content: center;
-    font-size: 20px;
-    input {
-        width: 92%;
-        &:disabled{
-            background-color: #F2F2F2;
-        }
-    }
-`;
-
-const ContainerMensagem = styled.div`
-    box-sizing: border-box;
-    width: 100%;
-    font-family: 'Lexend Deca';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 17.976px;
-    line-height: 22px;
-    color: #666666;
-    padding: 18px;
-    margin-top: 10px;
-`

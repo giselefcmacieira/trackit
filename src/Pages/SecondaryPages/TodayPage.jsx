@@ -1,15 +1,14 @@
 import styled from "styled-components";
-import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
 import { useContext, useEffect, useState } from "react";
 import { infProfile } from "../../constants/Context";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu, Topo, Text, ContainerProgressBar, PageContainer } from "./Styles";
+import { PageContainer, ContainerInfoHoje } from "../../styles/Styles-Today-Habit-Historic";
 import dayjs from "dayjs";
 import axios from "axios";
 import { BASE_URL } from "../../constants/urls";
-import Habit from "./Habit";
+import Habit from "../../components/Habit";
 import { percent } from "../../constants/Context";
-import Header from "./Header";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 
 export default function TodayPage(){
@@ -17,8 +16,6 @@ export default function TodayPage(){
     const [progresso, setProgresso] = useContext(percent);
 
     console.log(typeof(progresso));
-
-    const navigate = useNavigate();
 
     const infProfi = useContext(infProfile);
 
@@ -77,7 +74,8 @@ export default function TodayPage(){
     if(quantidade === 0){
         setProgresso(0)
     }else{
-        setProgresso((qtdConcluidos/quantidade)*100);
+        const porcentagem = Math.round((qtdConcluidos/quantidade)*100)
+        setProgresso(porcentagem);
     }
 
     if(progresso === 0){
@@ -86,16 +84,9 @@ export default function TodayPage(){
         mensagem = `${progresso}% dos hábitos concluídos`;
     }
 
-    function goToHabits(){
-        navigate('/habitos');
-    }
-
-    function goToHistoric(){
-        navigate('/historico');
-    }
-
     return(
         <PageContainer>
+
             <Header />
 
             <ContainerInfoHoje progresso={progresso}>
@@ -107,67 +98,10 @@ export default function TodayPage(){
                 <Habit habit={habit} key={habit.id} recarregar={recarregar} setRecarregar={setRecarregar}/>)
             )}
 
-            <Menu data-test="menu">
-                <Text data-test="habit-link" onClick={goToHabits}>
-                    <p>Habitos</p>
-                </Text>
+            <Footer />
 
-                <Link data-test="today-link" to='/hoje'>
-                <ContainerProgressBar >
-                    <CircularProgressbarWithChildren value={progresso}
-                    background
-                    backgroundPadding={6}
-                    styles={buildStyles({
-                        pathColor: "#fff",
-                        trailColor: "transparent",
-                        strokeLinecap: "round",
-                        backgroundColor: "#52B6FF",
-                      })}
-                    >
-                        <p>Hoje</p>
-                    </CircularProgressbarWithChildren>
-                </ContainerProgressBar>
-                </Link>
-
-                <Text data-test="history-link" onClick={goToHistoric}>
-                    <p>Histórico</p>
-                </Text>
-            </Menu>
         </PageContainer>
     )
 }
 
-const ContainerInfoHoje = styled.div`
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start; 
-    padding: 10px;
-    margin-top: 20px;
-    p:first-child{
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 23px;
-        line-height: 29px;
-        color: #126BA5;
-        margin-bottom: 5px:
-    }
-    p:nth-child(2){
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 22px;
-        color: ${props => {
-            if(props.progresso > 0){
-                return '#8FC549';
-            }else{
-                return '#BABABA';
-            }
-        }};
-    }
-`;
 

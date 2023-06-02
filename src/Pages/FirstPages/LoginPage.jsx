@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo_PNG.png"
 import { BASE_URL } from "../../constants/urls";
-import { LoginPageContainer, FormContainer, Body } from "./styles";
+import { LoginPageContainer, FormContainer, Body } from "../../styles/Styles-Login-Register";
 import { ThreeDots } from  'react-loader-spinner'
 import { infProfile } from "../../constants/Context";
 

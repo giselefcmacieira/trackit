@@ -5,10 +5,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LoginPage from './Pages/FirstPages/LoginPage'
 import RegisterPage from './Pages/FirstPages/RegisterPage'
 import axios from 'axios'
-import HabitPage from './Pages/HabitsPage/HabitPage'
-import TodayPage from './Pages/HabitsPage/TodayPage'
+import HabitPage from './Pages/SecondaryPages/HabitPage'
+import TodayPage from './Pages/SecondaryPages/TodayPage'
 import { infProfile } from './constants/Context'
-import HistoricPage from './Pages/HabitsPage/HistoricPage'
+import HistoricPage from './Pages/SecondaryPages/HistoricPage'
 import { percent } from './constants/Context'
 
 function App() {

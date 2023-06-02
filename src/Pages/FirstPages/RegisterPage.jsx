@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LoginPageContainer, FormContainer, Body } from "./styles";
+import { LoginPageContainer, FormContainer, Body } from "../../styles/Styles-Login-Register";
 import Logo from '../../assets/Logo_PNG.png';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";

@@ -1,9 +1,9 @@
 import axios from "axios"
 import { useContext } from "react"
 import styled from "styled-components"
-import Check from "../../assets/Check.png"
-import { BASE_URL } from "../../constants/urls"
-import { infProfile } from "../../constants/Context";
+import Check from "../assets/Check.png"
+import { BASE_URL } from "../constants/urls"
+import { infProfile } from "../constants/Context";
 
 export default function Habit(props){
     const {habit, recarregar, setRecarregar} = props

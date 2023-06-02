@@ -1,5 +1,5 @@
-import { Topo } from "./Styles"
-import { infProfile } from "../../constants/Context"
+import { Topo } from "../styles/Styles-Today-Habit-Historic"
+import { infProfile } from "../constants/Context"
 import { useContext } from "react";
 
 export default function Header(){
