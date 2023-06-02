@@ -22,11 +22,9 @@ export default function HistoricPage(){
 
     return(
         <PageContainer>
-            <Topo>
-            <div data-test="header">
+            <Topo  data-test="header">
                 <p>TrackIt</p>
                 <img data-test="avatar" src={infProfi[0].image}></img>
-            </div>
             </Topo>
 
             <ContainerHistorico>
